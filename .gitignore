@@ -14,4 +14,4 @@ yarn-error.log
 /.vscode
 
 bootstrap/cache
-storage/framework/sessions
+storage
