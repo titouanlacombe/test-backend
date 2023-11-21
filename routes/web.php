@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CashboxController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MoneyController;
 
@@ -15,4 +16,6 @@ use App\Http\Controllers\MoneyController;
 */
 
 
-Route::get('/' )->uses(MoneyController::class.'@index');
+Route::get('', [MoneyController::class, 'index']);
+Route::get('get-return')->uses([MoneyController::class, 'money_return']);
+Route::resource('cashboxes', CashboxController::class);
