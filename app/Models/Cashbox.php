@@ -33,29 +33,23 @@ class Cashbox extends Model
 	];
 
 	/**
+	 * Get coins
+	 * 
+	 * @return array
+	 */
+	public static function getCoins(): array
+	{
+		return array_keys(self::$coinValues);
+	}
+
+	/**
 	 * Get the value of the coin
 	 *
 	 * @param string $coin
 	 * @return int
 	 */
-	public function getCoinValue(string $coin): int
+	public static function getCoinValue(string $coin): int
 	{
 		return self::$coinValues[$coin];
-	}
-
-	/**
-	 * Get the total amount of money in the cashbox
-	 *
-	 * @return int
-	 */
-	public function getTotal(): int
-	{
-		$total = 0;
-
-		foreach (self::$coinValues as $coin => $value) {
-			$total += $this->$coin * $value;
-		}
-
-		return $total;
 	}
 }

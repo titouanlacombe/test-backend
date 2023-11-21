@@ -35,7 +35,7 @@ class CashboxController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$request->validate([
+		$validator = $this->getValidationFactory()->make($request->all(), [
 			'amount_1' => 'required|integer',
 			'amount_2' => 'required|integer',
 			'amount_5' => 'required|integer',
@@ -44,6 +44,13 @@ class CashboxController extends Controller
 			'amount_50' => 'required|integer',
 			'amount_100' => 'required|integer',
 		]);
+
+		if ($validator->fails()) {
+			return response()->json([
+				'message' => 'Invalid request',
+				'errors' => $validator->errors()
+			], 400);
+		}
 
 		$cashbox = Cashbox::create($request->all());
 
@@ -91,7 +98,7 @@ class CashboxController extends Controller
 	{
 		$cashbox = Cashbox::findOrFail($id);
 
-		$request->validate([
+		$validator = $this->getValidationFactory()->make($request->all(), [
 			'amount_1' => 'required|integer',
 			'amount_2' => 'required|integer',
 			'amount_5' => 'required|integer',
@@ -100,6 +107,13 @@ class CashboxController extends Controller
 			'amount_50' => 'required|integer',
 			'amount_100' => 'required|integer',
 		]);
+
+		if ($validator->fails()) {
+			return response()->json([
+				'message' => 'Invalid request',
+				'errors' => $validator->errors()
+			], 400);
+		}
 
 		$cashbox->update($request->all());
 
